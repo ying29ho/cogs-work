@@ -1,0 +1,18 @@
+.container{
+
+    display: grid;
+    grid-template-columns:60vw 40vw;
+    grid-template-rows: 100%;
+    grid-template-areas: "main side";
+}
+
+.main{
+    grid-area: main;
+}
+
+.side{
+    grid-area: side;
+    background-color: #d1f7ff;
+    opacity: 50%;
+}
+

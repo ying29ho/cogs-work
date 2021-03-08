@@ -1,0 +1,41 @@
+.productCard {
+  padding: 10px;
+  text-align: center;
+}
+
+.cardTitle > .productCard {
+  font-size: 30px;
+}
+
+.cardPrice > .productCard {
+  font-size: 25px;
+}
+
+.detailCard {
+  background-color: #68A6BB;
+  text-align: left;
+  color: #D1F7FF;
+  height: 100%;
+  font-size: 2rem !important;
+}
+.cardTitle > .detailCard {
+  font-size: 2rem !important;
+  color: #9E1842 !important;
+}
+
+hr{
+    border: 1px solid #9E1842;
+}
+.cardAvailability .cardQty > .detailCard {
+    font-size: 18px;
+}
+.cardPrice > .detailCard {
+  font-size: 22px;
+}
+/* .cardQty > .detailCard {
+    font-size: 22px;
+} */
+
+button > .detailCard {
+  align-self: right;
+}

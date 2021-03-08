@@ -1,0 +1,18 @@
+.btn{
+    font-size: 2rem;
+    padding: 0 1em 0 1em;
+    border: none;
+}
+
+.btn-primary{
+    color: #005678;
+}
+
+.btn-secondary{
+    color: #D1F7FF;
+}
+
+.btn-secondary:disabled{
+    color: #4A9BBA;
+    background-color: #9E1842;
+}

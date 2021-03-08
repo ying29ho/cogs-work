@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap");
+@import "~bootstrap/scss/bootstrap";
+
+$teko: "Teko", sans-serif;
+$east-sea-dokdo: "East Sea Dokdo", cursive;
+
+h1 {
+  font: 100% $teko;
+  font-size: 6em;
+  text-align: center;
+  text-transform: uppercase;
+  position: absolute;
+  color: $mid-blue-heading;
+}
+
+h1::before {
+  content: attr(data-title);
+  position: absolute;
+  color: $light-blue-heading;
+  width: 100%;
+  top: -5px;
+  left: -5px;
+}
+
+h2 {
+  font: 100% $east-sea-dokdo;
+  font-size: 5em;
+  text-align: left;
+  text-transform: capitalize;
+  position: absolute;
+  color: $mid-blue-heading;
+  padding: 0 1rem 0 1rem;
+}
+h2::before {
+  content: attr(data-title);
+  position: absolute;
+  color: $light-blue-heading;
+  width: 100%;
+  // text-transform: capitalize;s
+  top: -5px;
+  left: -5px;
+  padding: 0 1rem 0 1rem;
+}
+
+@media only screen and (min-width: 500px) {
+  h1{
+    font-size: 10em;
+  }
+  h1::before {
+    width: auto;
+  }
+
+  h2{
+    font-size: 7em;
+  }
+
+  h2::before {
+    width: auto;
+  }
+}
+
+h3 {
+  color: #05d9e8;
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+
+body {
+  margin: 0;
+  // overflow: visible;
+  // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  //   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Teko",
+  //   sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "East Sea Dokdo", cursive;
+  font-family: "Teko", sans-serif;
+  // font-family: "East Sea Dokdo", cursive;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $dark-blue;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

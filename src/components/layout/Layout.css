@@ -1,0 +1,10 @@
+@media only screen and (max-width: 500px) {
+  .title {
+    /* transform: rotate(-40deg); */
+    padding-left: 100px;
+  }
+  .router{
+    padding-top: 500px;
+    margin-top: 200px;
+  }
+}
