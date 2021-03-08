@@ -47,8 +47,6 @@ const Container = styled.div`
 
 const FIRST_ADD_LINEITEMS = gql`
   mutation($lineItem: [CheckoutLineItemInput!]!) {
-    # mutation($lineItem: CheckoutLineItemInput) {
-
     checkoutCreate(input: { lineItems: $lineItem }) {
       checkout {
         id
@@ -103,7 +101,7 @@ const IndividualProduct = (props) => {
   });
 
   const [firstAddToCart] = useMutation(FIRST_ADD_LINEITEMS, {
-    onCompleted: (data) => setCheckoutId(data.checkoutCreate.checkout.id) + console.log("first add data", data),
+    onCompleted: (data) => setCheckoutId(data.checkoutCreate.checkout.id) + console.log("first add data", data) + console.log("new checkout id",checkoutId),
     onError: (error) =>
       alert("Not added to cart. Try again") + console.log(error),
   });

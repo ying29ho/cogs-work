@@ -82,7 +82,6 @@ const Cart = () => {
   }
   console.log("checkut id at cart", checkoutId);
   console.log(typeof checkoutId);
-  // checkoutId ===""||checkoutId===null? return "cart is empty":
    const { loading, data, error, refetch } = useQuery(FETCH_CART, {
     variables: { checkoutId },
   });

@@ -103,15 +103,15 @@ const Home = () => {
   return (
     <MainContainer>
       {/* {console.log("NEW DATA", data)} */}
-      {data.productTypes.edges.map(({ node: catNode }) => (
+      {data.productTypes.edges.map(({ node: catNode}, index) => (
         <Container>
-          <h2 data-title={catNode}>{catNode}</h2>
-          <CardDeck>
+          <h2 key = {index} data-title={catNode}>{catNode}</h2>
+          <CardDeck >
             <Row xs={2} sm={3} md={4}>
-              {data.products.edges.map(({ node }) =>
+              {data.products.edges.map(({ node }, index) =>
                 node.productType === catNode ? (
                   <ProductCard
-                    key={node.id}
+                    key={index}
                     className="card"
                     imgSrc={node.images.edges[0].node.originalSrc}
                     name={node.title}

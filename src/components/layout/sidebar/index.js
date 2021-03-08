@@ -118,18 +118,18 @@ export const routes = [
     Component: Checkout,
   },
   { path: "/policies", exact: true, name: "Policies", Component: Policies },
-  {
-    path: "/signup",
-    exact: true,
-    name: "Sign Up",
-    Component: SignUp,
-  },
-  {
-    path: "/login",
-    exact: true,
-    name: "Log In",
-    Component: LogIn,
-  },
+  // {
+  //   path: "/signup",
+  //   exact: true,
+  //   name: "Sign Up",
+  //   Component: SignUp,
+  // },
+  // {
+  //   path: "/login",
+  //   exact: true,
+  //   name: "Log In",
+  //   Component: LogIn,
+  // },
 ];
 
 const Sidebar = ({ ...props }) => {
