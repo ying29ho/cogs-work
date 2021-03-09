@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { CartTable } from "../../components/table";
+import React, { useContext, useEffect } from "react";
+import { EmptyTable, CartTable } from "../../components/table";
 import ThemeButton from "../../components/button";
 import { gql, useQuery } from "@apollo/client";
 import Loading from "../Loading";
@@ -76,47 +76,83 @@ const tableHeading = [
 const Cart = () => {
   // const lineItem = useContext(LineItemContext);
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
-  
-  const handleCheckout =(webUrl)=>{
+
+  const handleCheckout = (webUrl) => {
     window.location.href = webUrl;
-  }
+  };
   console.log("checkut id at cart", checkoutId);
   console.log(typeof checkoutId);
-   const { loading, data, error, refetch } = useQuery(FETCH_CART, {
-    variables: { checkoutId },
-  });
-  if (loading) return <Loading />;
-  if (error) return <Error error={error} />;
-  return (
-    <Container>
-      {console.log("CART DATA", data)}
-      {console.log("content", data.node.lineItems.edges)}
-      <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
-        &nbsp;Checkout - Cart&nbsp;
-      </h2>
-      <CartTable
-        refetch={refetch}
-        headings={tableHeading}
-        content={data.node.lineItems.edges}
-        total={data.node.lineItemsSubtotalPrice.amount}
-      />
-      <ThemeButton
-        className="btn-right"
-        variant="secondary"
-        text="Proceed to Checkout"
-        disabled={data.node.lineItems.edges.length === 0 ? true : false}
-        onClick={()=>handleCheckout(data.node.webUrl)}
-      />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <ThemeButton text="Continue Shopping" />
-    </Container>
-  );
+
+  const FetchExisting = (checkoutId) => {
+    const { loading, data, error, refetch } = useQuery(FETCH_CART, {
+      variables: { checkoutId },
+    });
+    if (loading) return <Loading />;
+    if (error) return <Error error={error} />;
+    return (
+      <Container>
+        {console.log("CART DATA", data)}
+        {console.log("content", data.node.lineItems.edges)}
+        <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
+          &nbsp;Checkout - Cart&nbsp;
+        </h2>
+        <CartTable
+          headings={tableHeading}
+          refetch={refetch}
+          content={data.node.lineItems.edges}
+          total={data.node.lineItemsSubtotalPrice.amount}
+        />
+        <ThemeButton
+          className="btn-right"
+          variant="secondary"
+          text="Proceed to Checkout"
+          disabled={data.node.lineItems.edges.length === 0 ? true : false}
+          onClick={() => handleCheckout(data.node.webUrl)}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <ThemeButton text="Continue Shopping" />
+      </Container>
+    );
+  };
+
+  const EmptyCart = ()=>{
+    const total = 0;
+    return(
+     < Container>
+        <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
+          &nbsp;Checkout - Cart&nbsp;
+        </h2>
+        <EmptyTable
+          headings={tableHeading}
+          // refetch={refetch}
+          // content={data.node.lineItems.edges}
+          total={total}
+        />
+        <ThemeButton
+          className="btn-right"
+          variant="secondary"
+          text="Proceed to Checkout"
+          disabled={true}
+          // onClick={() => handleCheckout(data.node.webUrl)}
+        />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <ThemeButton text="Continue Shopping" />
+      </Container>
+    )
+  }
+return(checkoutId===""||checkoutId===null ?  EmptyCart() :  FetchExisting(checkoutId))
 };
 
 export default Cart;

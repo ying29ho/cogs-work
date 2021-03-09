@@ -1,13 +1,14 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-
-import { Radio } from "../form";
 import { gql, useMutation } from "@apollo/client";
 
-import styled from "styled-components";
 import { CheckoutIdContext } from "../../context/shopContext";
+import { Radio } from "../form";
+
+import styled from "styled-components";
+import "./table.css";
 
 const Container = styled.div`
   width: 100%;
@@ -71,7 +72,51 @@ const REMOVE_LINEITEM = gql`
   }
 `;
 
-const CartTable = ({ headings, content, total} ,refetch ) => {
+const EmptyTable = ({ headings, total }) => {
+  return (
+    <Container>
+      <Table responsive striped hover borderless>
+        <thead>
+          <tr>
+            {headings.map(({ heading, col }, index) => (
+              <th colSpan={col} key={index}>
+                <h3>{heading}</h3>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          <tr className="last-row">
+            <td
+              colSpan={
+                headings[0].col +
+                headings[1].col +
+                headings[2].col +
+                headings[3].col +
+                headings[4].col
+              }
+            >
+              Nothing is here....yet...
+            </td>
+          </tr>
+          <tr className="last-row">
+            <td colSpan={headings[0].col} />
+            <td colSpan={headings[1].col} />
+            <td colSpan={headings[2].col} />
+            <th colSpan={headings[3].col}>
+              <h3>Total</h3>
+            </th>
+            <th colSpan={headings[4].col}>
+              <h3>BND {total}</h3>
+            </th>
+          </tr>
+        </tbody>
+      </Table>
+    </Container>
+  );
+};
+
+const CartTable = ({ headings, content, total }, refetch) => {
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
   const [removeItemFromCart] = useMutation(REMOVE_LINEITEM, {
     // refetchQueries:[{query: FETCH_CART}],
@@ -120,7 +165,7 @@ const CartTable = ({ headings, content, total} ,refetch ) => {
               </td>
             </tr>
           ))}
-          <tr hover="false">
+          <tr className="last-row">
             <td colSpan={headings[0].col} />
             <td colSpan={headings[1].col} />
             <td colSpan={headings[2].col} />
@@ -265,4 +310,4 @@ const PaymentTable = ({ headings, content, total }) => {
   );
 };
 
-export { CartTable, DeliveryTable, PaymentTable };
+export { EmptyTable, CartTable, DeliveryTable, PaymentTable };

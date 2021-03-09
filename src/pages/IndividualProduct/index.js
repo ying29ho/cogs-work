@@ -1,5 +1,5 @@
 // import Title from "../../components/layout/title";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 // import { Input, Checkbox, Select } from "../../components/form";
 // import Form from "react-bootstrap/Form";
 // import CardColumns from "react-bootstrap/CardColumns";
@@ -74,6 +74,15 @@ const ADD_LINEITEMS = gql`
       checkout {
         id
         webUrl
+        lineItems(first: 20){
+        edges{
+          node{
+            id
+            title
+            quantity
+          }
+        }
+      }
       }
       checkoutUserErrors {
         code
@@ -121,9 +130,12 @@ const IndividualProduct = (props) => {
     console.log("pushed item", lineItem);
     // console.log(typeof lineItem);
 
-    checkoutId === "" || checkoutId === null
-      ? firstAddToCart({ variables: {lineItem} })
-      : updateCart({ variables: { lineItem, checkoutId } });
+    // useEffect(()=>{
+
+      checkoutId === "" || checkoutId === null
+        ? firstAddToCart({ variables: {lineItem} })
+        : updateCart({ variables: { lineItem, checkoutId } });
+    // }, [checkoutId. lineItem, firstAddToCart(), updateCart()])
     // console.log(lineItem);
     return alert("Added to Cart");
   };
