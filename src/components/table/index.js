@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 import { CheckoutIdContext } from "../../context/shopContext";
 import { Radio } from "../form";
@@ -72,6 +72,20 @@ const REMOVE_LINEITEM = gql`
   }
 `;
 
+const FETCH_ITEM_PRICE = gql`
+  query($productId: ID!) {
+    node(id: $productId) {
+      ... on ProductVariant {
+        id
+        priceV2 {
+          amount
+          currencyCode
+        }
+      }
+    }
+  }
+`;
+
 const EmptyTable = ({ headings, total }) => {
   return (
     <Container>
@@ -113,6 +127,35 @@ const EmptyTable = ({ headings, total }) => {
         </tbody>
       </Table>
     </Container>
+  );
+};
+
+const ItemPrice = ({ productId, colSpan1, colSpan2, quantity }) => {
+  const { data: price, loading } = useQuery(FETCH_ITEM_PRICE, {
+    variables: { productId },
+    skip: productId == null,
+  });
+  if (loading)
+    return (
+      <>
+        <td>...</td>
+        <td>...</td>
+      </>
+    );
+  return (
+    // console.log("price", price),
+    // console.log("quantity", quantity),
+    // console.log("productId", productId),
+    <>
+      <td colSpan={colSpan1}>
+        {price.node.priceV2.currencyCode}&nbsp;
+        {Number.parseFloat(price.node.priceV2.amount).toFixed(2)}
+      </td>
+      <td colSpan={colSpan2}>
+        {price.node.priceV2.currencyCode} &nbsp;
+        {Number.parseFloat(quantity * price.node.priceV2.amount).toFixed(2)}
+      </td>
+    </>
   );
 };
 
@@ -159,10 +202,18 @@ const CartTable = ({ headings, content, total }, refetch) => {
               </td>
               <td colSpan={headings[1].col}>{each.node.quantity}</td>
               <td colSpan={headings[2].col}>{each.node.title}</td>
-              <td colSpan={headings[3].col}>BND {each.node.unitPrice}</td>
-              <td colSpan={headings[4].col}>
-                BND {each.node.quantity * each.node.unitPrice}
-              </td>
+              {/* <td colSpan={headings[3].col}>BND {each.node.unitPrice}</td> */}
+              {/* <td colSpan={headings[3].col}> */}
+              <ItemPrice
+                productId={each.node.variant.id}
+                colSpan1={headings[3].col}
+                colSpan2={headings[4].col}
+                quantity={each.node.quantity}
+              />
+              {/* </td> */}
+              {/* <td colSpan={headings[4].col}>
+                BND {* each.node.unitPrice}
+              </td> */}
             </tr>
           ))}
           <tr className="last-row">
@@ -173,7 +224,10 @@ const CartTable = ({ headings, content, total }, refetch) => {
               <h3>Total</h3>
             </th>
             <th colSpan={headings[4].col}>
-              <h3>BND {total}</h3>
+              <h3>
+                BND&nbsp;
+                {Number.parseFloat(total).toFixed(2)}
+              </h3>
             </th>
           </tr>
         </tbody>

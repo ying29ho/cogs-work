@@ -110,6 +110,7 @@ const DetailCard = ({
 
         <Card.Text className="cardQty">
           QTY
+        </Card.Text>
           <Input
             type={type}
             style={{
@@ -123,7 +124,6 @@ const DetailCard = ({
             onChange={onChange}
             name={name}
           />
-        </Card.Text>
         {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
         <Button text="Add to Cart🛒" onClick={onClick} />
       </Card.Body>

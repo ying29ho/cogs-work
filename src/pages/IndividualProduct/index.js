@@ -113,7 +113,7 @@ const IndividualProduct = (props) => {
   // console.log(typeof checkoutId);
 
   const [updateCart] = useMutation(ADD_LINEITEMS, {
-    onCompleted: (data) => console.log("update add data", data),
+    onCompleted: (data) => null,
     onError: (error) =>
       alert("Not Added to cart. Try again") + console.log(error),
   });

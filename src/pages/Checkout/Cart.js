@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { EmptyTable, CartTable } from "../../components/table";
 import ThemeButton from "../../components/button";
 import { gql, useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import Error from "../Error";
-import { LineItemContext, CheckoutIdContext } from "../../context/shopContext";
+import { CheckoutIdContext } from "../../context/shopContext";
 
 import styled from "styled-components";
 
@@ -48,10 +48,9 @@ const FETCH_CART = gql`
               id
               title
               quantity
-              variant
-              # unitPrice {
-              #   amount
-              # }
+              variant{
+                id
+              }
             }
           }
         }
@@ -63,26 +62,19 @@ const FETCH_CART = gql`
   }
 `;
 
-const FETCH_ITEM_PRICE=gql`
-query($productId: ID!){
-  node(id: $$productId){
-    ...on ProductVariant{
-      id
-      priceV2{
-        amount
-        currencyCode
+const FETCH_ITEM_PRICE = gql`
+  query($productId: ID!) {
+    node(id: $productId) {
+      ... on ProductVariant {
+        id
+        priceV2 {
+          amount
+          currencyCode
+        }
+    
       }
-      # product{
-      #   priceRange{
-      #     maxVariantPrice{
-      #       amount
-      #       currencyCode
-      #     }
-      #   }
-      # }
     }
   }
-}
 `;
 
 const tableHeading = [
@@ -103,9 +95,16 @@ const Cart = () => {
   const handleCheckout = (webUrl) => {
     window.location.href = webUrl;
   };
-  console.log("checkut id at cart", checkoutId);
-  console.log(typeof checkoutId);
+  // console.log("checkut id at cart", checkoutId);
+  // console.log(typeof checkoutId);
 
+  // const FetchPrice = (productId) => {
+  //   const { data: itemPrice } = useQuery(FETCH_ITEM_PRICE, {
+  //     variables: productId,
+  //     skip: productId == null,
+  //   });
+  //   console.log("Item price here", itemPrice);
+  // };
   const FetchExisting = (checkoutId) => {
     const { loading, data, error, refetch } = useQuery(FETCH_CART, {
       variables: { checkoutId },
@@ -114,8 +113,6 @@ const Cart = () => {
     if (error) return <Error error={error} />;
     return (
       <Container>
-        {console.log("CART DATA", data)}
-        {console.log("content", data.node.lineItems.edges)}
         <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
           &nbsp;Checkout - Cart&nbsp;
         </h2>
@@ -144,10 +141,10 @@ const Cart = () => {
     );
   };
 
-  const EmptyCart = ()=>{
+  const EmptyCart = () => {
     const total = 0;
-    return(
-     < Container>
+    return (
+      <Container>
         <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
           &nbsp;Checkout - Cart&nbsp;
         </h2>
@@ -173,9 +170,11 @@ const Cart = () => {
         <br />
         <ThemeButton text="Continue Shopping" />
       </Container>
-    )
-  }
-return(checkoutId===""||checkoutId===null ?  EmptyCart() :  FetchExisting(checkoutId))
+    );
+  };
+  return checkoutId === "" || checkoutId === null
+    ? EmptyCart()
+    : FetchExisting(checkoutId);
 };
 
 export default Cart;
