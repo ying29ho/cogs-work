@@ -62,20 +62,6 @@ const FETCH_CART = gql`
   }
 `;
 
-const FETCH_ITEM_PRICE = gql`
-  query($productId: ID!) {
-    node(id: $productId) {
-      ... on ProductVariant {
-        id
-        priceV2 {
-          amount
-          currencyCode
-        }
-    
-      }
-    }
-  }
-`;
 
 const tableHeading = [
   {

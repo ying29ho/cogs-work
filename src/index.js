@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 // import { Provider } from "react-redux";
 // import { createStore } from "redux";
 // import Client from "shopify-buy";
 // import store from "./redux/store";
-import typeBundle from "./types";
 import App from "./App";
 import {
   ApolloClient,
@@ -15,9 +14,9 @@ import {
   // setContext,
 } from "@apollo/client";
 // import ShopProvider from "./context/shopContext";
-import { LineItemContext, CheckoutIdContext } from "./context/shopContext";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import {AUTH_TOKEN} from "../src/constants";
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -27,7 +26,7 @@ const client = new ApolloClient({
     uri: "https://cogs-work.myshopify.com/api/2021-01/graphql.json",
     headers: {
       Accept: "application/json",
-      "X-Shopify-Storefront-Access-Token": "3895fab55b392eba0cb70d2381319aea",
+      "X-Shopify-Storefront-Access-Token": AUTH_TOKEN,
     },
   }),
   //  SHOPIFY ADMIN API

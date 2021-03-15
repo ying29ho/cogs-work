@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { DeliveryTable } from "../../components/table";
 import Button from "../../components/button";
-import { Radio } from "../../components/form";
+// import { Radio } from "../../components/form";
 import { Link } from "react-router-dom";
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
 import styled from "styled-components";
 import "./checkout.css";
 
@@ -59,15 +59,15 @@ const tableContent = [
 
 const Delivery = () => {
   const [checked, setChecked] = useState(null);
-  const formik = useFormik({
-    initialValues: {
-      pickUp: true,
-      delivery: false,
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     pickUp: true,
+  //     delivery: false,
+  //   },
+  //   onSubmit: (values) => {
+  //     alert(JSON.stringify(values, null, 2));
+  //   },
+  // });
   return (
     <Container>
       <h2 data-title="&nbsp;Checkout - Delivery&nbsp;">

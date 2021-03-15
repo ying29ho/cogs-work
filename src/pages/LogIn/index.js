@@ -4,9 +4,9 @@ import Form from "react-bootstrap/Form";
 import ThemeButton from "../../components/button";
 import "./LogIn.css";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+// import * as Yup from "yup";
 import styled from "styled-components";
-import { useState } from "react";
+// import { useState } from "react";
 
 const Container = styled.div`
   border: 5px solid #ff286b;

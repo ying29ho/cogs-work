@@ -22,7 +22,7 @@ const ImageCarousel = ({ arrays }) => {
           key={node.id}
           onClick={() => handleOnClick(node)}
           src={node.originalSrc}
-          // alt={each.alt}
+          alt={node.alt}
         />
       ))}
     </Container>
