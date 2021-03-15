@@ -29,22 +29,20 @@ const Container = styled.div`
     color: #d1f7ff;
   }
 
-  .custom-control-label::after{
+  .custom-control-label::after {
     background: #4a9bba;
     border-radius: 3px;
-    border:none;
-    font-size:2rem;
+    border: none;
+    font-size: 2rem;
     color: #d1f7ff;
   }
-  .custom-control-label:checked{
+  .custom-control-label:checked {
     background: #4a9bba;
     border-radius: 3px;
-    border:none;
-    font-size:2rem;
+    border: none;
+    font-size: 2rem;
     color: #d1f7ff;
   }
-
-
 
   .radio > label {
     color: #d1f7ff;
@@ -53,7 +51,7 @@ const Container = styled.div`
 
 const Input = ({
   label,
-  values,
+  // values,
   name,
   type = "text",
   errors,
@@ -71,6 +69,7 @@ const Input = ({
   <Container>
     <Form.Label>{label}</Form.Label>
     <Form.Control
+      id={name}
       min={min}
       max={max}
       value={value}

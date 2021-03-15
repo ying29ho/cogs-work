@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { gql, useQuery } from "@apollo/client";
 
 import Home from "../../pages/Home";
 import SignUp from "../../pages/SignUp";
@@ -11,6 +12,16 @@ import Checkout from "../../pages/Checkout";
 import Delivery from "../../pages/Checkout/Delivery";
 import Payment from "../../pages/Checkout/Payment";
 import Confirm from "../../pages/Checkout/Confirm";
+
+const FETCH_CATEGORIES = gql`
+  {
+    productTypes(first: 10) {
+      edges {
+        node
+      }
+    }
+  }
+`;
 
 export const routes = [
   {
@@ -49,7 +60,7 @@ export const routes = [
     exact: false,
     name: "Individual",
     Component: IndividualProduct,
-    // handler: IndividualProduct, 
+    // handler: IndividualProduct,
   },
   {
     path: "/checkout-delivery",
@@ -72,12 +83,34 @@ export const routes = [
 ];
 
 const Router = () => {
+  const SubCat = () => {
+    const { loading, data } = useQuery(FETCH_CATEGORIES);
+    if (loading) return <p>Loading...</p>;
+    data.productTypes.edges.map((each) =>
+      routes.push({
+        path: `/category-${each.node}`,
+        exact: true,
+        name: `${each.node}`,
+        Component: CategoryProduct,
+      })
+    );
+  };
+
+  SubCat();
   return (
     <Switch>
-      {routes.map(({ path, exact, Component }) => (
+      {routes.map(({ name, path, exact, Component }) => (
+        path.includes('/category') ?
+        <Route key={path} path={path} exact={exact} render={(props)=>
+        <CategoryProduct {...props} category={name}/>
+        } />
+
+        : 
+      
         <Route key={path} path={path} exact={exact} component={Component} />
+      
       ))}
-      {/* <Route component={NotFound}/> */}
+
     </Switch>
   );
 };

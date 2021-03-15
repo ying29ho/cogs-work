@@ -11,15 +11,15 @@ import { gql, useQuery } from "@apollo/client";
 import cx from "classnames";
 
 import Home from "../../../pages/Home";
-import SignUp from "../../../pages/SignUp";
-import LogIn from "../../../pages/LogIn";
+// import SignUp from "../../../pages/SignUp";
+// import LogIn from "../../../pages/LogIn";
 import CategoryProduct from "../../../pages/CategoryProduct";
 // import IndividualProduct from "../../../pages/IndividualProduct";
 import Policies from "../../../pages/Policies";
 import Checkout from "../../../pages/Checkout";
 
 // const drawerWidth = 100%;
-const drawerWidth = 300;
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +69,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#FF286B",
     fontSize: "2rem",
     textShadow: "2px 2px #9E1842",
+    display: "block",
+  },
+  sublink: {
+    textDecoration: "none",
+    color: "#FF286B",
+    fontSize: "1.8rem",
+    textShadow: "2px 2px #9E1842",
+    display: "block",
   },
   content: {
     flexGrow: 1,
@@ -88,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const query = gql`
+const FETCH_CATEGORIES = gql`
   {
     productTypes(first: 10) {
       edges {
@@ -133,11 +141,22 @@ export const routes = [
 ];
 
 const Sidebar = ({ ...props }) => {
-  //To Get Category
-  const {data} = useQuery(query);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const subCategoryRoutes = [];
+  const SubCat = () => {
+    const { loading, data } = useQuery(FETCH_CATEGORIES);
+    if (loading) return <p>Loading...</p>;
+    data.productTypes.edges.map((each) =>
+      subCategoryRoutes.push({
+        path: `/category-${each.node}`,
+        exact: true,
+        name: `${each.node}`,
+        Component: CategoryProduct,
+      })
+    );
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -146,6 +165,8 @@ const Sidebar = ({ ...props }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  SubCat();
   return (
     <div className="menu" className={classes.root}>
       <AppBar
@@ -166,7 +187,6 @@ const Sidebar = ({ ...props }) => {
           </IconButton>
         </Grid>
       </AppBar>
-
       <Drawer
         style={{ width: drawerWidth }}
         variant="persistent"
@@ -184,13 +204,36 @@ const Sidebar = ({ ...props }) => {
           </IconButton>
         </div>
         <List>
-          {routes.map(({ name, path, ...children }) => (
-            <ListItem key={name}>
-              <Link className={classes.link} to={path} key={name}>
+          {routes.map(({ name, path, ...children }) =>
+            name === "Category" ? (
+              <ListItem key={name} className={classes.link}>
                 {name}
-              </Link>
-            </ListItem>
-          ))}
+                {subCategoryRoutes.map(({ name, path, ...children }, index) => (
+                  <ListItem key={index} component="div">
+                    <Link
+                      className={classes.sublink}
+                      to={path}
+                      key={index}
+                      // onClick={() => handleDrawerClose}
+                    >
+                      {name}
+                    </Link>
+                  </ListItem>
+                ))}
+              </ListItem>
+            ) : (
+              <ListItem key={name}>
+                <Link
+                  className={classes.link}
+                  to={path}
+                  key={name}
+                  // onClick={() => handleDrawerClose}
+                >
+                  {name}
+                </Link>
+              </ListItem>
+            )
+          )}
         </List>
       </Drawer>
     </div>

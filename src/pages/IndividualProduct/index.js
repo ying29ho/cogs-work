@@ -1,5 +1,5 @@
 // import Title from "../../components/layout/title";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 // import { Input, Checkbox, Select } from "../../components/form";
 // import Form from "react-bootstrap/Form";
 // import CardColumns from "react-bootstrap/CardColumns";
@@ -8,6 +8,7 @@ import MainTab from "../../components/tabs";
 import ImageCarousel from "../../components/images";
 import { withRouter } from "react-router";
 import { gql, useMutation } from "@apollo/client";
+import { useFormik } from "formik";
 
 // import { connect } from "react-redux";
 // import {addLineItem} from "../../redux/actions";
@@ -15,7 +16,7 @@ import { gql, useMutation } from "@apollo/client";
 import "./Individual.css";
 
 import styled from "styled-components";
-import { LineItemContext, CheckoutIdContext } from "../../context/shopContext";
+import { CheckoutIdContext } from "../../context/shopContext";
 
 const Container = styled.div`
   border: 5px solid #ff286b;
@@ -51,15 +52,15 @@ const FIRST_ADD_LINEITEMS = gql`
       checkout {
         id
         webUrl
-        lineItems(first: 20){
-        edges{
-          node{
-            id
-            title
-            quantity
+        lineItems(first: 20) {
+          edges {
+            node {
+              id
+              title
+              quantity
+            }
           }
         }
-      }
       }
     }
   }
@@ -74,15 +75,15 @@ const ADD_LINEITEMS = gql`
       checkout {
         id
         webUrl
-        lineItems(first: 20){
-        edges{
-          node{
-            id
-            title
-            quantity
+        lineItems(first: 20) {
+          edges {
+            node {
+              id
+              title
+              quantity
+            }
           }
         }
-      }
       }
       checkoutUserErrors {
         code
@@ -93,15 +94,23 @@ const ADD_LINEITEMS = gql`
   }
 `;
 
-
 const IndividualProduct = (props) => {
+  const formik = useFormik({
+    initialValues: {
+      quantity: 1,
+    },
+    onSubmit: (values) => {
+      HandleAddToCart(productInfo.variants.edges[0].node.id, values.quantity);
+      // console.log("submitted");
+    },
+  });
   const { productHandle, productInfo } = props.location.state;
   //cannot move this
   // const lineItem = useContext(LineItemContext);
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
 
-  console.log("checkoutid", checkoutId);
-  console.log(typeof checkoutId);
+  // console.log("checkoutid", checkoutId);
+  // console.log(typeof checkoutId);
 
   const [updateCart] = useMutation(ADD_LINEITEMS, {
     onCompleted: (data) => console.log("update add data", data),
@@ -110,7 +119,11 @@ const IndividualProduct = (props) => {
   });
 
   const [firstAddToCart] = useMutation(FIRST_ADD_LINEITEMS, {
-    onCompleted: (data) => setCheckoutId(data.checkoutCreate.checkout.id) + console.log("first add data", data) + console.log("new checkout id",checkoutId),
+    onCompleted: (data) =>
+      setCheckoutId(data.checkoutCreate.checkout.id),
+      // +
+      // console.log("first add data", data) +
+      // console.log("new checkout id", checkoutId),
     onError: (error) =>
       alert("Not added to cart. Try again") + console.log(error),
   });
@@ -123,18 +136,18 @@ const IndividualProduct = (props) => {
     // lineItem.push(newItem);
     const lineItem = [
       {
-        "variantId": variantId,
-        "quantity": quantity
+        variantId: variantId,
+        quantity: quantity,
       },
     ];
-    console.log("pushed item", lineItem);
+    // console.log("pushed item", lineItem);
     // console.log(typeof lineItem);
 
     // useEffect(()=>{
 
-      checkoutId === "" || checkoutId === null
-        ? firstAddToCart({ variables: {lineItem} })
-        : updateCart({ variables: { lineItem, checkoutId } });
+    checkoutId === "" || checkoutId === null
+      ? firstAddToCart({ variables: { lineItem } })
+      : updateCart({ variables: { lineItem, checkoutId } });
     // }, [checkoutId. lineItem, firstAddToCart(), updateCart()])
     // console.log(lineItem);
     return alert("Added to Cart");
@@ -142,7 +155,6 @@ const IndividualProduct = (props) => {
   return (
     <Container className="individual">
       <h2 data-title={productInfo.title}>{productInfo.title}</h2>
-
       <div className="indi-main">
         <div className="container-1">
           <ImageCarousel arrays={productInfo.images.edges} />
@@ -151,11 +163,12 @@ const IndividualProduct = (props) => {
           <DetailCard
             productName={productInfo.title}
             availability={productInfo.totalInventory}
-            quantity="1"
+            name="quantity"
+            value={formik.values.quantity}
+            onChange={formik.handleChange}
             price={productInfo.priceRange.maxVariantPrice.amount}
-            onClick={() =>
-              HandleAddToCart(productInfo.variants.edges[0].node.id, 1)
-            }
+            onClick={formik.handleSubmit}
+            type="number"
           />
         </div>
         <div className="container-3">

@@ -86,27 +86,27 @@ const query = gql`
         }
       }
     }
-    productTypes(first: 10) {
-      edges {
-        node
-      }
-    }
+    # productTypes(first: 10) {
+    #   edges {
+    #     node
+    #   }
+    # }
   }
 `;
 
-const CategoryProduct = () => {
+const CategoryProduct = ({category}) => {
   const { loading, data, error } = useQuery(query);
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
   return (
     <MainContainer>
-      {data.productTypes.edges.map(({ node: catNode }) => (
+      {/* {data.productTypes.edges.map(({ node: catNode }) => ( */}
         <Container>
-          <h2 data-title={catNode}>{catNode}</h2>
+          <h2 data-title={category}>{category}</h2>
           <CardDeck>
             <Row xs={2} sm={3} md={4}>
               {data.products.edges.map(({ node }) =>
-                node.productType === catNode ? (
+                node.productType === category ? (
                   <ProductCard
                     key={node.id}
                     className="card"
@@ -121,7 +121,7 @@ const CategoryProduct = () => {
             </Row>
           </CardDeck>
         </Container>
-      ))}
+      {/* ))} */}
     </MainContainer>
   );
 };

@@ -1,10 +1,10 @@
 import Card from "react-bootstrap/Card";
 import Button from "../button";
 import { Input } from "../form";
-import Form from "../../components/form";
+// import Form from "../../components/form";
 import { Col } from "react-bootstrap/";
 import { Link } from "react-router-dom";
-import { useFormik } from "formik";
+// import { useFormik } from "formik";
 import styled from "styled-components";
 import "./card.css";
 
@@ -73,18 +73,21 @@ const DetailCard = ({
   productName,
   availability,
   price,
-  quantity,
+  onChange,
+  value, 
+  name,type,
+  // quantity,
   rating,
   onClick,
 }) => {
-  const formik = useFormik({
-    initialValues: {
-      quantity: 1,
-    },
-    onSubmit: (values) => {
-      alert("wah");
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     quantity: 1,
+  //   },
+  //   onSubmit: (values) => {
+  //     alert("wah");
+  //   },
+  // });
   return (
     <Card
       className="detailCard"
@@ -108,7 +111,7 @@ const DetailCard = ({
         <Card.Text className="cardQty">
           QTY
           <Input
-            type="number"
+            type={type}
             style={{
               width: "15%",
               textAlign: "center",
@@ -116,9 +119,9 @@ const DetailCard = ({
             }}
             min="1"
             max={availability}
-            value={formik.values.quantity}
-            onChange={formik.handleChange}
-            name="quantity"
+            value={value}
+            onChange={onChange}
+            name={name}
           />
         </Card.Text>
         {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
