@@ -49,9 +49,9 @@ const FETCH_CART = gql`
               title
               quantity
               variant
-              unitPrice {
-                amount
-              }
+              # unitPrice {
+              #   amount
+              # }
             }
           }
         }
