@@ -48,6 +48,7 @@ const FETCH_CART = gql`
               id
               title
               quantity
+              variant
               unitPrice {
                 amount
               }
@@ -60,6 +61,28 @@ const FETCH_CART = gql`
       }
     }
   }
+`;
+
+const FETCH_ITEM_PRICE=gql`
+query($productId: ID!){
+  node(id: $$productId){
+    ...on ProductVariant{
+      id
+      priceV2{
+        amount
+        currencyCode
+      }
+      # product{
+      #   priceRange{
+      #     maxVariantPrice{
+      #       amount
+      #       currencyCode
+      #     }
+      #   }
+      # }
+    }
+  }
+}
 `;
 
 const tableHeading = [
