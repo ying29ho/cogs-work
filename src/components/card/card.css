@@ -1,33 +1,44 @@
 .productCard {
   padding: 10px;
   text-align: center;
+  border: none;
+  box-shadow: -3px -3px 5px #004059;
 }
+
+
+/* a:hover > .productCard {
+  text-decoration: none !important;
+  text-shadow: -1px -1px 3px #004059;
+} */
 
 .cardTitle > .productCard {
   font-size: 30px;
+
 }
 
 .cardPrice > .productCard {
   font-size: 25px;
+
 }
 
 .detailCard {
-  background-color: #68A6BB;
+  background-color: #68a6bb;
   text-align: left;
-  color: #D1F7FF;
+  color: #d1f7ff;
   height: 100%;
   font-size: 2rem !important;
+  box-shadow: -3px -3px 5px #004059;
 }
 .cardTitle > .detailCard {
   font-size: 2rem !important;
-  color: #9E1842 !important;
+  color: #9e1842 !important;
 }
 
-hr{
-    border: 1px solid #9E1842;
+hr {
+  border: 1px solid #9e1842;
 }
 .cardAvailability .cardQty > .detailCard {
-    font-size: 18px;
+  font-size: 18px;
 }
 .cardPrice > .detailCard {
   font-size: 22px;

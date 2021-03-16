@@ -1,9 +1,43 @@
 @import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap");
-@import "~bootstrap/scss/bootstrap";
+// @import "~bootstrap/scss/bootstrap";
+
+// @import "node_modules/bootstrap/scss/_variables.scss";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/card";
+@import "node_modules/bootstrap/scss/reboot";
 
 $teko: "Teko", sans-serif;
 $east-sea-dokdo: "East Sea Dokdo", cursive;
+
+//new colors
+$light-blue-heading: #d1f7ff;
+$light-blue-table: #68a6bb;
+$mid-blue-heading: #05d9e8;
+$mid-dirty-blue: #4a9bba;
+$dark-blue: #005678;
+$neon-pink: #f00751;
+$neon-pink-2: #ff286b;
+$dark-pink: #9e1842;
+
+//overrides
+$table-accent-bg: $light-blue-table;
+$table-hover-bg: rgba(#ff286b, 0.5);
+
+$theme-colors: (
+  "primary": $mid-blue-heading,
+  "secondary": $neon-pink,
+  "card-primary": $mid-dirty-blue,
+  "card-text": $dark-pink,
+  "a": $neon-pink-2,
+);
+
+//bootstrap and its default variables
+@import "node_modules/bootstrap/scss/bootstrap";
 
 h1 {
   font: 100% $teko;
@@ -43,15 +77,25 @@ h2::before {
   padding: 0 1rem 0 1rem;
 }
 
+// a:link {
+//   color: none;
+// }
+
+a:hover {
+  color: $neon-pink-2;
+  text-shadow: -1px -1px 3px #004059;
+  text-decoration: none;
+}
+
 @media only screen and (min-width: 500px) {
-  h1{
+  h1 {
     font-size: 10em;
   }
   h1::before {
     width: auto;
   }
 
-  h2{
+  h2 {
     font-size: 7em;
   }
 

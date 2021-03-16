@@ -8,6 +8,7 @@ const Container = styled.div`
   .nav-tabs {
     border:none ;
     padding-top: 7rem;
+
   }
   .tab-content {
     background-color: #68a6bb;
@@ -15,6 +16,7 @@ const Container = styled.div`
     padding: 2rem;
     padding-top: 3rem;
     font-size: 1.5rem;
+    box-shadow: -3px -3px 5px #004059;
   }
 
   .nav-link{
@@ -22,12 +24,14 @@ const Container = styled.div`
     background-color: #FF286B;
     border: none;
     font-size: 1.5rem;
+  
   }
 
   .nav-link.active{
     color: #d1f7ff;
     background-color: #68a6bb;
     border: none;
+    box-shadow: -3px -3px 5px #004059;
   }
 
   .nav-link.disabled{

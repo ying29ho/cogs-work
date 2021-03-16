@@ -70,6 +70,13 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "2rem",
     textShadow: "2px 2px #9E1842",
     display: "block",
+    // "&:hover": {
+    //   textDecoration: "underline",
+    //   color: "##ff286b",
+    //   fontSize: "2rem",
+    //   // textShadow: "2px 2px #9E1842",
+    //   // display: "block",
+    // },
   },
   sublink: {
     textDecoration: "none",
