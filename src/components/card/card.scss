@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 .productCard {
   padding: 10px;
   text-align: center;
@@ -31,11 +33,11 @@
 }
 .cardTitle > .detailCard {
   font-size: 2rem !important;
-  color: #9e1842 !important;
+  color: $dark-pink !important;
 }
 
 hr {
-  border: 1px solid #9e1842;
+  border: 1px solid $dark-pink;
 }
 .cardAvailability .cardQty > .detailCard {
   font-size: 18px;

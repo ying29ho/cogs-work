@@ -6,7 +6,7 @@ import { Col } from "react-bootstrap/";
 import { Link } from "react-router-dom";
 // import { useFormik } from "formik";
 import styled from "styled-components";
-import "./card.css";
+import "./card.scss";
 
 const MainContainer = styled.div`
   .Container {
@@ -49,8 +49,8 @@ const ProductCard = ({
         <Card
           stretched-link="true"
           className="productCard"
-          bg="card-primary"
-          text="card-text"
+          bg="dirty-blue"
+          text="dark-pink"
           // style={{ width: "250px", cursor: "pointer", height: "400px" }}
         >
           <Card.Img variant="top" src={imgSrc} />

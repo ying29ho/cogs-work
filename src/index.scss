@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap");
-// @import "~bootstrap/scss/bootstrap";
+@import 'assets/styles/variables';
 
-// @import "node_modules/bootstrap/scss/_variables.scss";
 @import "node_modules/bootstrap/scss/functions";
 @import "node_modules/bootstrap/scss/variables";
 @import "node_modules/bootstrap/scss/mixins";
@@ -14,15 +13,6 @@
 $teko: "Teko", sans-serif;
 $east-sea-dokdo: "East Sea Dokdo", cursive;
 
-//new colors
-$light-blue-heading: #d1f7ff;
-$light-blue-table: #68a6bb;
-$mid-blue-heading: #05d9e8;
-$mid-dirty-blue: #4a9bba;
-$dark-blue: #005678;
-$neon-pink: #f00751;
-$neon-pink-2: #ff286b;
-$dark-pink: #9e1842;
 
 //overrides
 $table-accent-bg: $light-blue-table;
@@ -31,8 +21,8 @@ $table-hover-bg: rgba(#ff286b, 0.5);
 $theme-colors: (
   "primary": $mid-blue-heading,
   "secondary": $neon-pink,
-  "card-primary": $mid-dirty-blue,
-  "card-text": $dark-pink,
+  "dirty-blue": $mid-dirty-blue,
+  "dark-pink": $dark-pink,
 );
 
 //bootstrap and its default variables
@@ -65,6 +55,7 @@ h2 {
   color: $mid-blue-heading;
   padding: 0 1rem 0 1rem;
 }
+
 h2::before {
   content: attr(data-title);
   position: absolute;
@@ -104,7 +95,7 @@ a:hover {
 }
 
 h3 {
-  color: #05d9e8;
+  color: $mid-blue-heading;
   font-size: 2rem;
   text-transform: uppercase;
 }
