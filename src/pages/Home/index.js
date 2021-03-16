@@ -4,7 +4,7 @@ import CardDeck from "react-bootstrap/CardDeck";
 import { gql, useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import Error from "../Error";
-import { Row } from "react-bootstrap/";
+import { Row, Col } from "react-bootstrap";
 
 // import Client from "shopify-buy";
 import styled from "styled-components";
@@ -19,11 +19,7 @@ const Container = styled.div`
   transform: translateX(15%);
   margin-top: 100px;
 
-  .card-deck {
-    margin-right: 15px;
-  }
-
-  .card {
+  .card-home {
     margin-top: 35px;
   }
 
@@ -99,26 +95,26 @@ const Home = () => {
   const { loading, data, error } = useQuery(query);
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
-
   return (
     <MainContainer>
-      {/* {console.log("NEW DATA", data)} */}
-      {data.productTypes.edges.map(({ node: catNode}, index) => (
+      {data.productTypes.edges.map(({ node: catNode }, index) => (
         <Container key={index}>
-          <h2  data-title={catNode}>{catNode}</h2>
-          <CardDeck >
-            <Row xs={2} sm={3} md={4}>
+          <h2 data-title={catNode}>{catNode}</h2>
+          <CardDeck>
+            <Row noGutters>
               {data.products.edges.map(({ node }, index) =>
                 node.productType === catNode ? (
-                  <ProductCard
-                    key={index}
-                    className="card"
-                    imgSrc={node.images.edges[0].node.originalSrc}
-                    name={node.title}
-                    price={node.priceRange.maxVariantPrice.amount}
-                    handle={node.handle}
-                    productInfo={node}
-                  />
+                  <Col xs={12} sm={6} md={4} lg={3} className="mb-3">
+                    <ProductCard
+                      key={index}
+                      className="card-home"
+                      imgSrc={node.images.edges[0].node.originalSrc}
+                      name={node.title}
+                      price={node.priceRange.maxVariantPrice.amount}
+                      handle={node.handle}
+                      productInfo={node}
+                    />
+                  </Col>
                 ) : null
               )}
             </Row>
