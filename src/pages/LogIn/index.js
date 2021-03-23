@@ -38,7 +38,7 @@ const LogIn = () => {
       password: "",
     },
     onSubmit: (values) => {
-      //send to api here or somewhere
+      //send to api here
       alert(JSON.stringify(values, null, 2));
     },
   });

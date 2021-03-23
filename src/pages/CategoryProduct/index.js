@@ -9,44 +9,8 @@ import { Row } from "react-bootstrap/";
 
 import styled from "styled-components";
 
-const Container = styled.div`
-  border: 5px solid #ff286b;
-  border-radius: 3px;
-  border-bottom: 50px solid #ff286b;
-  padding: 20px 20px 60px 20px;
-  height: auto;
-  width: 80%;
-  transform: translateX(15%);
-  margin-top: 100px;
-
-  .card {
-    margin-top: 35px;
-  }
-
-  .card-deck {
-    margin-right: 15px;
-  }
-
-  h2 {
-    background: #005678;
-    height: 10vh;
-    width: auto;
-    margin: -100px 0 0 0;
-  }
-  @media (max-width: 500px) {
-    width: 95vw;
-    margin: 80px 0 0 0;
-
-    h2 {
-      font-size: 4em;
-      text-align: center;
-      margin: -70px 0 0 0;
-    }
-  }
-`;
-
 const MainContainer = styled.div`
-  @media (max-width: 500px) {
+  @media (max-width: 770px) {
     margin: 180px 0 0 -45px;
   }
 `;
@@ -86,11 +50,6 @@ const query = gql`
         }
       }
     }
-    # productTypes(first: 10) {
-    #   edges {
-    #     node
-    #   }
-    # }
   }
 `;
 
@@ -100,11 +59,10 @@ const CategoryProduct = ({category}) => {
   if (error) return <Error error={error} />;
   return (
     <MainContainer>
-      {/* {data.productTypes.edges.map(({ node: catNode }) => ( */}
-        <Container>
+        <div className="border-container">
           <h2 data-title={category}>{category}</h2>
           <CardDeck>
-            <Row xs={2} sm={3} md={4}>
+          <Row xs={2} sm={2} md={3} lg={4}>
               {data.products.edges.map(({ node }) =>
                 node.productType === category ? (
                   <ProductCard
@@ -120,8 +78,7 @@ const CategoryProduct = ({category}) => {
               )}
             </Row>
           </CardDeck>
-        </Container>
-      {/* ))} */}
+        </div>
     </MainContainer>
   );
 };

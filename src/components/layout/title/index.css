@@ -1,8 +1,5 @@
 .title {
   position: relative;
-  /* transform: rotate(-90deg); 
-    margin: auto 10px; 
-    border: 1px solid black; */
 }
 
 .logo {
@@ -10,17 +7,13 @@
   width: 100%;
   white-space: nowrap;
   text-align: center;
-  /* margin-top: -100px; */
-  /* transform: rotate(-90deg); */
-  /* transform: translateY(100%); */
-  /* transform-origin: 0% 0%; */
-  /* margin: auto 10px; */
-  /* border: 1px solid white; */
+  font-size: 6em;
 }
 @media only screen and (min-width: 500px) {
   .logo {
     top: 50%;
     transform: translate(-25%, -50%) rotate(-90deg);
     width: auto;
+    font-size: 11vw;
   }
 }

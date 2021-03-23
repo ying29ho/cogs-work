@@ -15,14 +15,8 @@
   grid-area: images;
   height: auto;
   margin: 0 auto 0 auto;
-  /* text-align: center; */
-  /* width: auto; */
 }
 
-/* img{
-  max-width: 25rem;
-  height:auto;
-} */
 
 .secondary{
   max-width: 7rem;
@@ -33,7 +27,6 @@
   padding: 2rem;
   grid-area: price;
   width: auto;
-  /* margin: auto 0 auto 0; */
 }
 
 .container-3 {
@@ -42,7 +35,7 @@
   height: auto;
 }
 
-@media(max-width: 500px){
+@media(max-width: 770px){
   .indi-main {
     transform: none;
     grid-template-rows: 30% 40% 30%;
@@ -54,7 +47,7 @@
   }
 
  .container-1{
-    padding: 1rem 0;
+    padding: 1rem auto;
     margin: 0 auto;
   }
   .container-2{
@@ -63,10 +56,6 @@
   .container-3{
     padding: 0;
   }
-
-  /* p{
-    font-size: 26px;
-  } */
 
 }
 

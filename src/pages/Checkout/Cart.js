@@ -5,34 +5,29 @@ import { gql, useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import Error from "../Error";
 import { CheckoutIdContext } from "../../context/shopContext";
-
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import "./checkout.css";
-
 const Container = styled.div`
-  @media (max-width: 500px) {
-    margin-top: 180px;
-  }
-  border: 5px solid #ff286b;
-  border-radius: 3px;
-  border-bottom: 50px solid #ff286b;
-  padding: 20px 20px 60px 20px;
-
-  height: auto;
-  width: 80%;
-  transform: translateX(15%);
-  margin-top: 100px;
-
-  h2 {
-    background: #005678;
-    height: 10vh;
-    width: auto;
-    margin: -100px 0 0 0;
-  }
-
   .btn-secondary {
     float: right;
+  }
+
+  @media (max-width: 770px) {
+    .btn {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    br {
+      display: none;
+    }
+  }
+`;
+const MainContainer = styled.div`
+  @media (max-width: 770px) {
+    margin: 180px 0 0 -45px;
   }
 `;
 
@@ -48,7 +43,7 @@ const FETCH_CART = gql`
               id
               title
               quantity
-              variant{
+              variant {
                 id
               }
             }
@@ -62,100 +57,95 @@ const FETCH_CART = gql`
   }
 `;
 
-
 const tableHeading = [
   {
     heading: "remove",
     col: 1,
+    mobile: 1,
   },
-  { heading: "qty", col: 1 },
-  { heading: "item", col: 5 },
-  { heading: "unit price", col: 2 },
-  { heading: "total price", col: 3 },
+  { heading: "qty", col: 1, mobile: 1 },
+  { heading: "item", col: 5, mobile: 7 },
+  { heading: "unit price", col: 2, mobile: 0 },
+  { heading: "total", col: 3, mobile: 3 },
 ];
 
 const Cart = () => {
-  // const lineItem = useContext(LineItemContext);
+  const history = useHistory();
+  // eslint-disable-next-line
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
 
   const handleCheckout = (webUrl) => {
     window.location.href = webUrl;
   };
-  // console.log("checkut id at cart", checkoutId);
-  // console.log(typeof checkoutId);
+  const handleBack = () => {
+    history.push("/");
+  };
 
-  // const FetchPrice = (productId) => {
-  //   const { data: itemPrice } = useQuery(FETCH_ITEM_PRICE, {
-  //     variables: productId,
-  //     skip: productId == null,
-  //   });
-  //   console.log("Item price here", itemPrice);
-  // };
   const FetchExisting = (checkoutId) => {
     const { loading, data, error, refetch } = useQuery(FETCH_CART, {
       variables: { checkoutId },
+      pollInterval: 500,
     });
+
     if (loading) return <Loading />;
     if (error) return <Error error={error} />;
     return (
-      <Container>
-        <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
-          &nbsp;Checkout - Cart&nbsp;
-        </h2>
-        <CartTable
-          headings={tableHeading}
-          refetch={refetch}
-          content={data.node.lineItems.edges}
-          total={data.node.lineItemsSubtotalPrice.amount}
-        />
-        <ThemeButton
-          className="btn-right"
-          variant="secondary"
-          text="Proceed to Checkout"
-          disabled={data.node.lineItems.edges.length === 0 ? true : false}
-          onClick={() => handleCheckout(data.node.webUrl)}
-        />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <ThemeButton text="Continue Shopping" />
-      </Container>
+      <MainContainer>
+        <Container className="border-container">
+          <h2 data-title="Checkout: Cart">Checkout: Cart</h2>
+          <CartTable
+            headings={tableHeading}
+            refetch={refetch}
+            content={data.node.lineItems.edges}
+            total={data.node.lineItemsSubtotalPrice.amount}
+          />
+          <ThemeButton
+            className="btn-right"
+            variant="secondary"
+            text="Proceed to Checkout"
+            disabled={data.node.lineItems.edges.length === 0 ? true : false}
+            onClick={() => handleCheckout(data.node.webUrl)}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <ThemeButton
+            text="Continue Shopping"
+            onClick={handleBack}
+            disabled={false}
+          />
+        </Container>
+      </MainContainer>
     );
   };
 
   const EmptyCart = () => {
     const total = 0;
     return (
-      <Container>
-        <h2 data-title="&nbsp;Checkout - Cart&nbsp;">
-          &nbsp;Checkout - Cart&nbsp;
-        </h2>
-        <EmptyTable
-          headings={tableHeading}
-          // refetch={refetch}
-          // content={data.node.lineItems.edges}
-          total={total}
-        />
-        <ThemeButton
-          className="btn-right"
-          variant="secondary"
-          text="Proceed to Checkout"
-          disabled={true}
-          // onClick={() => handleCheckout(data.node.webUrl)}
-        />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <ThemeButton text="Continue Shopping" />
-      </Container>
+      <MainContainer>
+        <Container className="border-container">
+          <h2 data-title="Checkout: Cart">Checkout: Cart</h2>
+          <EmptyTable headings={tableHeading} total={total} />
+          <ThemeButton
+            className="btn-right"
+            variant="secondary"
+            text="Proceed to Checkout"
+            disabled={true}
+          />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <ThemeButton text="Continue Shopping" onClick={handleBack} />
+        </Container>
+      </MainContainer>
     );
   };
   return checkoutId === "" || checkoutId === null

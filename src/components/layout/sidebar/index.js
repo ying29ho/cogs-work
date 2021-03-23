@@ -11,14 +11,10 @@ import { gql, useQuery } from "@apollo/client";
 import cx from "classnames";
 
 import Home from "../../../pages/Home";
-// import SignUp from "../../../pages/SignUp";
-// import LogIn from "../../../pages/LogIn";
 import CategoryProduct from "../../../pages/CategoryProduct";
-// import IndividualProduct from "../../../pages/IndividualProduct";
 import Policies from "../../../pages/Policies";
 import Checkout from "../../../pages/Checkout";
 
-// const drawerWidth = 100%;
 const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
@@ -35,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
     // width: "90%",
-
     transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
@@ -133,22 +128,11 @@ export const routes = [
     Component: Checkout,
   },
   { path: "/policies", exact: true, name: "Policies", Component: Policies },
-  // {
-  //   path: "/signup",
-  //   exact: true,
-  //   name: "Sign Up",
-  //   Component: SignUp,
-  // },
-  // {
-  //   path: "/login",
-  //   exact: true,
-  //   name: "Log In",
-  //   Component: LogIn,
-  // },
 ];
 
-const Sidebar = ({ ...props }) => {
+const Sidebar = () => {
   const classes = useStyles();
+   // eslint-disable-next-line 
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const subCategoryRoutes = [];
@@ -175,6 +159,7 @@ const Sidebar = ({ ...props }) => {
 
   SubCat();
   return (
+     // eslint-disable-next-line 
     <div className="menu" className={classes.root}>
       <AppBar
         style={{ background: "transparent", boxShadow: "none" }}
@@ -221,7 +206,6 @@ const Sidebar = ({ ...props }) => {
                       className={classes.sublink}
                       to={path}
                       key={index}
-                      // onClick={() => handleDrawerClose}
                     >
                       {name}
                     </Link>
@@ -234,7 +218,6 @@ const Sidebar = ({ ...props }) => {
                   className={classes.link}
                   to={path}
                   key={name}
-                  // onClick={() => handleDrawerClose}
                 >
                   {name}
                 </Link>

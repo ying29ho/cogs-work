@@ -12,6 +12,7 @@ import "./table.css";
 
 const Container = styled.div`
   width: 100%;
+  margin-top: 20px;
 
   th {
     text-align: center;
@@ -86,19 +87,30 @@ const FETCH_ITEM_PRICE = gql`
   }
 `;
 
+const TableHeading = ({ headings }) => {
+  return (
+    <>
+      <thead>
+        <tr>
+          {headings.map(({ heading, col, mobile }, index) => (
+            <th
+              key={index}
+              className={heading === "unit price" ? "d-none d-sm-block" :  null}
+              colSpan={col}
+            >
+              <h3>{heading}</h3>
+            </th>
+          ))}
+        </tr>
+      </thead>
+    </>
+  );
+};
 const EmptyTable = ({ headings, total }) => {
   return (
     <Container>
-      <Table responsive striped hover borderless>
-        <thead>
-          <tr>
-            {headings.map(({ heading, col }, index) => (
-              <th colSpan={col} key={index}>
-                <h3>{heading}</h3>
-              </th>
-            ))}
-          </tr>
-        </thead>
+      <Table striped hover borderless>
+        <TableHeading headings={headings} />
         <tbody>
           <tr className="last-row">
             <td
@@ -138,16 +150,13 @@ const ItemPrice = ({ productId, colSpan1, colSpan2, quantity }) => {
   if (loading)
     return (
       <>
-        <td>...</td>
+        <td className="d-none d-sm-block">...</td>
         <td>...</td>
       </>
     );
   return (
-    // console.log("price", price),
-    // console.log("quantity", quantity),
-    // console.log("productId", productId),
     <>
-      <td colSpan={colSpan1}>
+      <td colSpan={colSpan1} className="d-none d-sm-block">
         {price.node.priceV2.currencyCode}&nbsp;
         {Number.parseFloat(price.node.priceV2.amount).toFixed(2)}
       </td>
@@ -160,38 +169,27 @@ const ItemPrice = ({ productId, colSpan1, colSpan2, quantity }) => {
 };
 
 const CartTable = ({ headings, content, total }, refetch) => {
+   // eslint-disable-next-line 
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
   const [removeItemFromCart] = useMutation(REMOVE_LINEITEM, {
-    // refetchQueries:[{query: FETCH_CART}],
-    onCompleted: (data) => console.log("new data", data) + refetch,
+    onCompleted: (data) => refetch,
     onError: (error) => alert("not removed") + console.log(error),
   });
   const removeItem = (checkoutId, lineItemIds) => {
     removeItemFromCart({ variables: { checkoutId, lineItemIds } });
-    // console.log();
-    alert("removed item");
-    // refetch();
-    return {
-      //remove item from cart
-    };
   };
   return (
     <Container>
-      <Table responsive striped hover borderless>
-        <thead>
-          <tr>
-            {headings.map(({ heading, col }, index) => (
-              <th colSpan={col} key={index}>
-                <h3>{heading}</h3>
-              </th>
-            ))}
-          </tr>
-        </thead>
+      <Table responsive striped hover borderless size="sm" width="50vw">
+        <TableHeading headings={headings} />
         <tbody>
-          {/* {content.map(({ quantity, unitPrice, title}, index) => ( */}
           {content.map((each, index) => (
             <tr key={index}>
-              <td colSpan={headings[0].col}>
+              <td
+                colSpan={
+                  headings[0].col
+                }
+              >
                 <IconButton
                   onClick={() => removeItem(checkoutId, each.node.id)}
                   edge="start"
@@ -200,20 +198,24 @@ const CartTable = ({ headings, content, total }, refetch) => {
                   <CloseIcon />
                 </IconButton>
               </td>
-              <td colSpan={headings[1].col}>{each.node.quantity}</td>
-              <td colSpan={headings[2].col}>{each.node.title}</td>
-              {/* <td colSpan={headings[3].col}>BND {each.node.unitPrice}</td> */}
-              {/* <td colSpan={headings[3].col}> */}
+              <td colSpan={headings[1].col} >{each.node.quantity}</td>
+              <td
+                colSpan={
+                  headings[2].col
+                }
+              >
+                {each.node.title}
+              </td>
               <ItemPrice
                 productId={each.node.variant.id}
-                colSpan1={headings[3].col}
-                colSpan2={headings[4].col}
+                colSpan1={
+                  headings[3].col
+                }
+                colSpan2={
+                  headings[4].col
+                }
                 quantity={each.node.quantity}
               />
-              {/* </td> */}
-              {/* <td colSpan={headings[4].col}>
-                BND {* each.node.unitPrice}
-              </td> */}
             </tr>
           ))}
           <tr className="last-row">

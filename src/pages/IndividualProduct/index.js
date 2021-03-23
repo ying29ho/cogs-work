@@ -1,8 +1,4 @@
-// import Title from "../../components/layout/title";
 import React, { useContext } from "react";
-// import { Input, Checkbox, Select } from "../../components/form";
-// import Form from "react-bootstrap/Form";
-// import CardColumns from "react-bootstrap/CardColumns";
 import { DetailCard } from "../../components/card";
 import MainTab from "../../components/tabs";
 import ImageCarousel from "../../components/images";
@@ -10,45 +6,20 @@ import { withRouter } from "react-router";
 import { gql, useMutation } from "@apollo/client";
 import { useFormik } from "formik";
 
-// import { connect } from "react-redux";
-// import {addLineItem} from "../../redux/actions";
-
 import "./Individual.css";
 
 import styled from "styled-components";
-import { CheckoutIdContext } from "../../context/shopContext";
+import { LineItemContext, CheckoutIdContext } from "../../context/shopContext";
 
-const Container = styled.div`
-  border: 5px solid #ff286b;
-  border-radius: 3px;
-  border-bottom: 50px solid #ff286b;
-  padding: 20px 20px 60px 20px;
-
-  height: auto;
-  width: 80%;
-  transform: translateX(15%);
-  margin-top: 100px;
-
-  h2 {
-    background: #005678;
-    height: 10vh;
-    width: auto;
-    margin: -100px 0 0 0;
-  }
-
-  @media (max-width: 500px) {
-    width: 95vw;
-    margin: 120px 0 0 -40px;
-
-    h2 {
-      display: none;
-    }
+const MainContainer = styled.div`
+  @media (max-width: 770px) {
+    margin: 120px 0 0 -45px;
   }
 `;
 
 const FIRST_ADD_LINEITEMS = gql`
-  mutation($lineItem: [CheckoutLineItemInput!]!) {
-    checkoutCreate(input: { lineItems: $lineItem }) {
+  mutation($item: [CheckoutLineItemInput!]!) {
+    checkoutCreate(input: { lineItems: $item }) {
       checkout {
         id
         webUrl
@@ -68,10 +39,10 @@ const FIRST_ADD_LINEITEMS = gql`
 
 const ADD_LINEITEMS = gql`
   mutation checkoutLineItemsAdd(
-    $lineItem: [CheckoutLineItemInput!]!
+    $item: [CheckoutLineItemInput!]!
     $checkoutId: ID!
   ) {
-    checkoutLineItemsAdd(lineItems: $lineItem, checkoutId: $checkoutId) {
+    checkoutLineItemsAdd(lineItems: $item, checkoutId: $checkoutId) {
       checkout {
         id
         webUrl
@@ -101,81 +72,64 @@ const IndividualProduct = (props) => {
     },
     onSubmit: (values) => {
       HandleAddToCart(productInfo.variants.edges[0].node.id, values.quantity);
-      // console.log("submitted");
     },
   });
+  // eslint-disable-next-line
   const { productHandle, productInfo } = props.location.state;
-  //cannot move this
-  // const lineItem = useContext(LineItemContext);
+  const lineItem = useContext(LineItemContext);
   const [checkoutId, setCheckoutId] = useContext(CheckoutIdContext);
 
-  // console.log("checkoutid", checkoutId);
-  // console.log(typeof checkoutId);
-
   const [updateCart] = useMutation(ADD_LINEITEMS, {
-    onCompleted: (data) => null,
     onError: (error) =>
       alert("Not Added to cart. Try again") + console.log(error),
   });
 
   const [firstAddToCart] = useMutation(FIRST_ADD_LINEITEMS, {
     onCompleted: (data) =>
-      setCheckoutId(data.checkoutCreate.checkout.id),
-      // +
-      // console.log("first add data", data) +
-      // console.log("new checkout id", checkoutId),
+      setCheckoutId(data.checkoutCreate.checkout.id) + console.log(lineItem),
     onError: (error) =>
       alert("Not added to cart. Try again") + console.log(error),
   });
 
   const HandleAddToCart = (variantId, quantity) => {
-    // const newItem = {
-    //   variantId: variantId,
-    //   quantity: quantity,
-    // };
-    // lineItem.push(newItem);
-    const lineItem = [
+    const item = [
       {
         variantId: variantId,
         quantity: quantity,
       },
     ];
-    // console.log("pushed item", lineItem);
-    // console.log(typeof lineItem);
-
-    // useEffect(()=>{
 
     checkoutId === "" || checkoutId === null
-      ? firstAddToCart({ variables: { lineItem } })
-      : updateCart({ variables: { lineItem, checkoutId } });
-    // }, [checkoutId. lineItem, firstAddToCart(), updateCart()])
-    // console.log(lineItem);
+      ? firstAddToCart({ variables: { item } })
+      : updateCart({ variables: { item, checkoutId } });
+    lineItem.push(item);
     return alert("Added to Cart");
   };
   return (
-    <Container className="individual">
-      <h2 data-title={productInfo.title}>{productInfo.title}</h2>
-      <div className="indi-main">
-        <div className="container-1">
-          <ImageCarousel arrays={productInfo.images.edges} />
-        </div>
-        <div className="container-2">
-          <DetailCard
-            productName={productInfo.title}
-            availability={productInfo.totalInventory}
-            name="quantity"
-            value={formik.values.quantity}
-            onChange={formik.handleChange}
-            price={productInfo.priceRange.maxVariantPrice.amount}
-            onClick={formik.handleSubmit}
-            type="number"
-          />
-        </div>
-        <div className="container-3">
-          <MainTab defaultActiveKey="desc" desc={productInfo.description} />
+    <MainContainer>
+      <div className="border-container individual">
+        <div className="indi-main">
+          <div className="container-1">
+            <ImageCarousel arrays={productInfo.images.edges} />
+          </div>
+          <div className="container-2">
+            <DetailCard
+              productName={productInfo.title}
+              availability={productInfo.totalInventory}
+              name="quantity"
+              value={formik.values.quantity}
+              onChange={formik.handleChange}
+              price={productInfo.priceRange.maxVariantPrice.amount}
+              onClick={formik.handleSubmit}
+              type="number"
+            />
+          </div>
+          <div className="container-3">
+            <MainTab defaultActiveKey="desc" desc={productInfo.description} />
+          </div>
         </div>
       </div>
-    </Container>
+    </MainContainer>
   );
 };
 

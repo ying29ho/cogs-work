@@ -2,7 +2,11 @@ import React from "react";
 import Form from "react-bootstrap/Form";
 import styled from "styled-components";
 
-const Container = styled.div`
+const Container = styled.div` 
+
+#quantity{
+  min-width: 50px;
+}
   label {
     color: #ff286b;
     text-align: left;
@@ -100,7 +104,6 @@ const Checkbox = ({
       name={name}
       onChange={onChange}
       value={value}
-      // checked={value}
       type="checkbox"
       custom
     ></Form.Check>
@@ -154,7 +157,6 @@ const Radio = ({
       value={value}
       label={label}
       type="radio"
-      // custom
     />
   </Container>
 );

@@ -7,7 +7,6 @@ const Container = styled.div`
 `;
 
 const ImageCarousel = ({ arrays }) => {
-  // console.log("Main", arrays[0].node)
   const [main, setMain] = useState(arrays[0].node);
   const handleOnClick = (props) => {
     setMain(props);
@@ -15,7 +14,6 @@ const ImageCarousel = ({ arrays }) => {
   return (
     <Container>
       <img className="image-main" src={main.originalSrc} alt={main.alt} />
-      {/* {console.log("IMAGE",arrays)} */}
       {arrays.map(({node}) => (
         <img
           className="image-secondary"

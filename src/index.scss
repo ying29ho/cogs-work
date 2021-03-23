@@ -10,6 +10,7 @@
 @import "node_modules/bootstrap/scss/grid";
 @import "node_modules/bootstrap/scss/card";
 @import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
 
 $teko: "Teko", sans-serif;
 $east-sea-dokdo: "East Sea Dokdo", cursive;
@@ -58,19 +59,25 @@ h1::before {
 
 h2 {
   font: 100% $east-sea-dokdo;
-  font-size: 5em;
+  font-size: 4em;
+  line-height: 1em;
+  white-space: normal;
   text-align: left;
   text-transform: capitalize;
   position: absolute;
   color: $mid-blue-heading;
   padding: 0 1rem 0 1rem;
+  background: $dark-blue;
+  height: 11vh;
+  width: auto;
+  margin: -60px 0 0 0;
 }
+
 h2::before {
   content: attr(data-title);
   position: absolute;
   color: $light-blue-heading;
   width: 100%;
-  // text-transform: capitalize;s
   top: -5px;
   left: -5px;
   padding: 0 1rem 0 1rem;
@@ -86,7 +93,18 @@ a:hover {
   text-decoration: none;
 }
 
-@media only screen and (min-width: 500px) {
+.border-container {
+  border: 5px solid #ff286b;
+  border-radius: 3px;
+  border-bottom: 50px solid #ff286b;
+  width: 95vw;
+  margin: 80px 0 0 0;
+  padding-left: 10px;
+  padding-right: 10px;
+  transform: translateX(15%);
+}
+
+@media only screen and (min-width: 770px) {
   h1 {
     font-size: 10em;
   }
@@ -95,14 +113,33 @@ a:hover {
   }
 
   h2 {
-    font-size: 7em;
+    font-size: 8vw;
+    height: 14vh;
+    text-align: left;
+    margin: -80px 0 0 0;
   }
 
   h2::before {
     width: auto;
   }
+
+  .border-container {
+    padding: 20px 20px 60px 20px;
+    height: auto;
+    width: 80%;
+    margin: 100px 20px 0 20px;
+  }
+
+ 
 }
 
+.card-deck{
+  margin: 0 auto;
+}
+
+.card {
+  margin-top: 35px;
+}
 h3 {
   color: #05d9e8;
   font-size: 2rem;
@@ -111,6 +148,7 @@ h3 {
 
 body {
   margin: 0;
+  -webkit-text-size-adjust: 100%;
   // overflow: visible;
   // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
   //   "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Teko",

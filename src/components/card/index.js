@@ -1,10 +1,8 @@
 import Card from "react-bootstrap/Card";
 import Button from "../button";
 import { Input } from "../form";
-// import Form from "../../components/form";
 import { Col } from "react-bootstrap/";
 import { Link } from "react-router-dom";
-// import { useFormik } from "formik";
 import styled from "styled-components";
 import "./card.css";
 
@@ -13,7 +11,7 @@ const MainContainer = styled.div`
     padding: 0px;
   }
   .card {
-    min-width: 230px;
+    min-width: 190px;
     height: 350px;
     cursor: pointer;
   }
@@ -35,8 +33,7 @@ const ProductCard = ({
   ...props
 }) => (
   <MainContainer>
-    {/* <Container> */}
-    <Col xs={6} sm={3}>
+    <Col>
       <Link
         to={{
           pathname: `/individual:${handle}`,
@@ -51,21 +48,22 @@ const ProductCard = ({
           className="productCard"
           bg="card-primary"
           text="card-text"
-          // style={{ width: "250px", cursor: "pointer", height: "400px" }}
         >
-          <Card.Img variant="top" src={imgSrc} />
-          <Card.Body>
-            <Card.Title className="cardTitle">{name}</Card.Title>
-            {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
-            <Card.Text className="cardPrice">
-              BND {Number.parseFloat(price).toFixed(2)}{" "}
-            </Card.Text>
+          <Card.Img variant="top" src={imgSrc} className="cardImage" />
+          <Card.Body style={{ position: "relative" }}>
+            <Card.Title className="cardTitle">
+              {name.length >= 50 ? `${name.slice(0, 40)}...` : name}
+            </Card.Title>
+            <div className="cardPriceDiv">
+              {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
+              <Card.Text className="cardPrice">
+                BND {Number.parseFloat(price).toFixed(2)}
+              </Card.Text>
+            </div>
           </Card.Body>
         </Card>
       </Link>
     </Col>
-    {/* </Row> */}
-    {/* </Container> */}
   </MainContainer>
 );
 
@@ -74,20 +72,12 @@ const DetailCard = ({
   availability,
   price,
   onChange,
-  value, 
-  name,type,
-  // quantity,
+  value,
+  name,
+  type,
   rating,
   onClick,
 }) => {
-  // const formik = useFormik({
-  //   initialValues: {
-  //     quantity: 1,
-  //   },
-  //   onSubmit: (values) => {
-  //     alert("wah");
-  //   },
-  // });
   return (
     <Card
       className="detailCard"
@@ -105,25 +95,22 @@ const DetailCard = ({
           {availability} Available
         </Card.Text>
         <Card.Text className="cardPrice">
-          BND {Number.parseFloat(price).toFixed(2)}{" "}
+          BND {Number.parseFloat(price).toFixed(2)}
         </Card.Text>
-
-        <Card.Text className="cardQty">
-          QTY
-        </Card.Text>
-          <Input
-            type={type}
-            style={{
-              width: "15%",
-              textAlign: "center",
-              display: "inline-block",
-            }}
-            min="1"
-            max={availability}
-            value={value}
-            onChange={onChange}
-            name={name}
-          />
+        <Card.Text className="cardQty">QTY</Card.Text>
+        <Input
+          type={type}
+          style={{
+            width: "15%",
+            textAlign: "center",
+            display: "inline-block",
+          }}
+          min="1"
+          max={availability}
+          value={value}
+          onChange={onChange}
+          name={name}
+        />
         {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
         <Button text="Add to Cart🛒" onClick={onClick} />
       </Card.Body>

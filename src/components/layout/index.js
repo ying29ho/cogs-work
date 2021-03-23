@@ -5,7 +5,6 @@ import Title from "./title";
 import "./Layout.css";
 
 const Layout = () => {
-  // const { lineItem } = useContext(ShopContext);
   return (
     <>
       <Title />

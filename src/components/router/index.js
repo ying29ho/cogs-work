@@ -60,7 +60,6 @@ export const routes = [
     exact: false,
     name: "Individual",
     Component: IndividualProduct,
-    // handler: IndividualProduct,
   },
   {
     path: "/checkout-delivery",
@@ -99,18 +98,18 @@ const Router = () => {
   SubCat();
   return (
     <Switch>
-      {routes.map(({ name, path, exact, Component }) => (
-        path.includes('/category') ?
-        <Route key={path} path={path} exact={exact} render={(props)=>
-        <CategoryProduct {...props} category={name}/>
-        } />
-
-        : 
-      
-        <Route key={path} path={path} exact={exact} component={Component} />
-      
-      ))}
-
+      {routes.map(({ name, path, exact, Component }) =>
+        path.includes("/category") ? (
+          <Route
+            key={path}
+            path={path}
+            exact={exact}
+            render={(props) => <CategoryProduct {...props} category={name} />}
+          />
+        ) : (
+          <Route key={path} path={path} exact={exact} component={Component} />
+        )
+      )}
     </Switch>
   );
 };

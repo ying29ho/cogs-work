@@ -4,7 +4,7 @@ import Button from "../../components/button";
 import { Link } from "react-router-dom";
 
 import styled from "styled-components";
-import "./checkout.css";
+// import "./checkout.css";
 
 const Container = styled.div`
   border: 5px solid #ff286b;
