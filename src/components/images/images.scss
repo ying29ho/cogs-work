@@ -12,8 +12,7 @@
 }
 
 .image-secondary:hover {
-  opacity: 80%;
-  color: $dark-blue;
+  color: $img-hover;
 }
 @media only screen and (max-width: 770px) {
   .image-main {
