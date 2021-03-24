@@ -3,10 +3,9 @@ import CardDeck from "react-bootstrap/CardDeck";
 import { gql, useQuery } from "@apollo/client";
 import Loading from "../Loading";
 import Error from "../Error";
-import { Row } from "react-bootstrap/";
+import { Row, Col } from "react-bootstrap";
 
 import styled from "styled-components";
-
 
 const MainContainer = styled.div`
   @media (max-width: 770px) {
@@ -61,7 +60,6 @@ const Home = () => {
   const { loading, data, error } = useQuery(query);
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
-
   return (
     <MainContainer>
       {data.productTypes.edges.map(({ node: catNode }, index) => (
@@ -71,14 +69,16 @@ const Home = () => {
             <Row xs={2} sm={2} md={3} lg={4}>
               {data.products.edges.map(({ node }, index) =>
                 node.productType === catNode ? (
-                  <ProductCard
-                    key={index}
-                    imgSrc={node.images.edges[0].node.originalSrc}
-                    name={node.title}
-                    price={node.priceRange.maxVariantPrice.amount}
-                    handle={node.handle}
-                    productInfo={node}
-                  />
+                  <Col>
+                    <ProductCard
+                      key={index}
+                      imgSrc={node.images.edges[0].node.originalSrc}
+                      name={node.title}
+                      price={node.priceRange.maxVariantPrice.amount}
+                      handle={node.handle}
+                      productInfo={node}
+                    />
+                  </Col>
                 ) : null
               )}
             </Row>

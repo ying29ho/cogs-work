@@ -8,7 +8,7 @@ import { CheckoutIdContext } from "../../context/shopContext";
 import { Radio } from "../form";
 
 import styled from "styled-components";
-import "./table.css";
+import "./table.scss";
 
 const Container = styled.div`
   width: 100%;

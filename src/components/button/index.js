@@ -1,5 +1,5 @@
 import Button from "react-bootstrap/Button";
-import "./button.css";
+import "./button.scss";
 
 const ThemeButton=({
     variant="primary",

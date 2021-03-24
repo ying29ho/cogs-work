@@ -5,7 +5,7 @@ import Error from "../Error";
 import CardDeck from "react-bootstrap/CardDeck";
 import { gql, useQuery } from "@apollo/client";
 
-import { Row } from "react-bootstrap/";
+import { Row, Col } from "react-bootstrap/";
 
 import styled from "styled-components";
 
@@ -53,18 +53,19 @@ const query = gql`
   }
 `;
 
-const CategoryProduct = ({category}) => {
+const CategoryProduct = ({ category }) => {
   const { loading, data, error } = useQuery(query);
   if (loading) return <Loading />;
   if (error) return <Error error={error} />;
   return (
     <MainContainer>
-        <div className="border-container">
-          <h2 data-title={category}>{category}</h2>
-          <CardDeck>
+      <div className="border-container">
+        <h2 data-title={category}>{category}</h2>
+        <CardDeck>
           <Row xs={2} sm={2} md={3} lg={4}>
-              {data.products.edges.map(({ node }) =>
-                node.productType === category ? (
+            {data.products.edges.map(({ node }) =>
+              node.productType === category ? (
+                <Col>
                   <ProductCard
                     key={node.id}
                     imgSrc={node.images.edges[0].node.originalSrc}
@@ -73,11 +74,12 @@ const CategoryProduct = ({category}) => {
                     handle={node.handle}
                     productInfo={node}
                   />
-                ) : null
-              )}
-            </Row>
-          </CardDeck>
-        </div>
+                </Col>
+              ) : null
+            )}
+          </Row>
+        </CardDeck>
+      </div>
     </MainContainer>
   );
 };

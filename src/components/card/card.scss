@@ -4,28 +4,19 @@
   /* padding: 10px; */
   text-align: center;
   border: none;
-  box-shadow: -3px -3px 5px #004059;
+  box-shadow: -3px -3px 5px $shadow;
 }
 
 .cardImage{
   object-fit: cover;
-  border-radius: 55;
   width: 100%;
   height: 50%;
 }
-
-/* a:hover > .productCard {
-  text-decoration: none !important;
-  text-shadow: -1px -1px 3px #004059;
-} */
 
 .cardTitle{
   font-size: 25px;
 }
 
-/* .cardTitle > h5{
-  font-size: 50px !important;
-} */
 
 
 .cardPriceDiv {
@@ -40,50 +31,29 @@
 .cardPriceDiv > .cardPrice{
   font-size: 25px;
   margin: 20px auto;
-  /* margin-bottom: 50px; */
+
 }
 
-
-.detailCard > hr {
-  border: 1px solid #9e1842;
-}
-
-.detailCard {
-  background-color: #68a6bb;
-  text-align: left;
-  color: #d1f7ff;
-  height: 100%;
-  font-size: 2rem !important;
-  box-shadow: -3px -3px 5px #004059;
-  margin: 0;
-}
 hr {
   border: 1px solid $dark-pink;
 }
-/* .cardTitle > .detailCard {
+
+.detailCard {
+  background-color: $light-blue-table;
+  text-align: left;
+  color: $light-blue-heading;
+  height: 100%;
   font-size: 2rem !important;
-  color: $dark-pink !important;
+  box-shadow: -3px -3px 5px $shadow;
+  margin: 0;
 }
 
-
-
-
-
-.detailCard > .cardAvailability .cardQty{  
-  font-size: 18px;
-}
-.detailCard > .cardPrice  {
-  font-size: 22px;
-}
-/* .cardQty > .detailCard {
-    font-size: 22px;
-} */
 
 .detailCard > button  {
   align-self: right;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 770px) {
   .cardTitle{
     font-size: 20px;
   }
@@ -94,6 +64,6 @@ hr {
   }
 
   .detailCard{
-    margin-bottom: 150px;
+    margin: 50px 0;
   }
 }

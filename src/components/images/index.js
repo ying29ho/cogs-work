@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./images.css";
+import "./images.scss";
 import styled from "styled-components";
 
 const Container = styled.div`

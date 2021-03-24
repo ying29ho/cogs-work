@@ -1,0 +1,9 @@
+@import "../../assets/styles/variables";
+
+.last-row {
+  background-color: $dark-blue !important;
+}
+
+.empty-row:hover {
+  background-color: $light-blue-heading !important;
+}

@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 .image-main {
   max-width: 25rem;
   height: 25rem;
@@ -11,9 +13,9 @@
 
 .image-secondary:hover {
   opacity: 80%;
-  color: #005678;
+  color: $dark-blue;
 }
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 770px) {
   .image-main {
     max-width: 15rem;
     height: 15rem;

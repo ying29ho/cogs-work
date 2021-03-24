@@ -1,19 +1,26 @@
 import React from "react";
-
 import styled from "styled-components";
-import "./Policies.css";
+
 
 const Container = styled.div`
  
   @media (max-width: 770px) {
     margin: 180px 0 0 -40px;
   }
+
+  h3 {
+    margin-top: 3rem;
+  }
+  
+  hr{
+      border: 1px solid #05d9e8;
+  }
 `;
 
 const Policies = () => {
   return (
     <Container className="border-container">
-      <h2 data-title="&nbsp;Policies&nbsp;">&nbsp;Policies&nbsp;</h2>
+      <h2 data-title="Policies">Policies</h2>
 
       <h3>Shipping & Pick-Up Policy</h3>
       <hr />

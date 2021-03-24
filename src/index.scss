@@ -24,6 +24,7 @@ $theme-colors: (
   "secondary": $neon-pink,
   "dirty-blue": $mid-dirty-blue,
   "dark-pink": $dark-pink,
+  "mid-blue-heading": $mid-blue-heading,
 );
 
 //bootstrap and its default variables
@@ -76,6 +77,11 @@ h2::before {
 // a:link {
 //   color: none;
 // }
+
+p {
+  color: $light-blue-heading;
+  font-size: 1.5rem;
+}
 
 a:hover {
   color: $neon-pink-2;

@@ -1,0 +1,20 @@
+@import "../../assets/styles/variables";
+
+.btn{
+    font-size: 2rem;
+    padding: 0 1em 0 1em;
+    border: none;
+}
+
+.btn-primary{
+    color: $dark-blue;
+}
+
+.btn-secondary{
+    color: $light-blue-heading;
+}
+
+.btn-secondary:disabled{
+    color: $mid-dirty-blue;
+    background-color: $dark-pink;
+}

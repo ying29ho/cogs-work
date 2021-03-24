@@ -1,7 +1,6 @@
 import Card from "react-bootstrap/Card";
 import Button from "../button";
 import { Input } from "../form";
-import { Col } from "react-bootstrap/";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "./card.scss";
@@ -23,47 +22,36 @@ const MainContainer = styled.div`
   }
 `;
 
-const ProductCard = ({
-  imgSrc,
-  name,
-  price,
-  rating,
-  handle,
-  productInfo,
-  ...props
-}) => (
+const ProductCard = ({ imgSrc, name, price, handle, productInfo }) => (
   <MainContainer>
-    <Col>
-      <Link
-        to={{
-          pathname: `/individual:${handle}`,
-          state: {
-            productHandle: { handle },
-            productInfo,
-          },
-        }}
+    <Link
+      to={{
+        pathname: `/individual:${handle}`,
+        state: {
+          productHandle: { handle },
+          productInfo,
+        },
+      }}
+    >
+      <Card
+        stretched-link="true"
+        className="productCard"
+        bg="dirty-blue"
+        text="dark-pink"
       >
-        <Card
-          stretched-link="true"
-          className="productCard"
-          bg="dirty-blue"
-          text="dark-pink"
-        >
-          <Card.Img variant="top" src={imgSrc} className="cardImage" />
-          <Card.Body style={{ position: "relative" }}>
-            <Card.Title className="cardTitle">
-              {name.length >= 50 ? `${name.slice(0, 40)}...` : name}
-            </Card.Title>
-            <div className="cardPriceDiv">
-              {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
-              <Card.Text className="cardPrice">
-                BND {Number.parseFloat(price).toFixed(2)}
-              </Card.Text>
-            </div>
-          </Card.Body>
-        </Card>
-      </Link>
-    </Col>
+        <Card.Img variant="top" src={imgSrc}  className="cardImage"/>
+        <Card.Body style={{ position: "relative" }}>
+          <Card.Title className="cardTitle">
+            {name.length >= 50 ? `${name.slice(0, 40)}...` : name}
+          </Card.Title>
+          <div className="cardPriceDiv">
+            <Card.Text className="cardPrice">
+              BND {Number.parseFloat(price).toFixed(2)}
+            </Card.Text>
+          </div>
+        </Card.Body>
+      </Card>
+    </Link>
   </MainContainer>
 );
 
@@ -111,7 +99,6 @@ const DetailCard = ({
           onChange={onChange}
           name={name}
         />
-        {/* <Card.Text className="cardPrice">⭐️⭐️⭐️⭐️⭐️</Card.Text> */}
         <Button text="Add to Cart🛒" onClick={onClick} />
       </Card.Body>
     </Card>
