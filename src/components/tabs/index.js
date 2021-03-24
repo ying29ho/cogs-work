@@ -7,7 +7,7 @@ import styled from "styled-components";
 const Container = styled.div`
   .nav-tabs {
     border:none ;
-    padding-top: 7rem;
+    margin-top: 7rem;
 
   }
   .tab-content {

@@ -1,3 +1,5 @@
+@import "../../assets/styles/variables";
+
 .productCard {
   /* padding: 10px; */
   text-align: center;
@@ -53,16 +55,17 @@
   height: 100%;
   font-size: 2rem !important;
   box-shadow: -3px -3px 5px #004059;
+  margin: 0;
+}
+hr {
+  border: 1px solid $dark-pink;
 }
 /* .cardTitle > .detailCard {
   font-size: 2rem !important;
-  color: #9e1842 !important;
-} */
-
-.detailCard > .cardTitle {
-  font-size: 2rem !important;
-  color: #9e1842 !important;
+  color: $dark-pink !important;
 }
+
+
 
 
 
@@ -88,5 +91,9 @@
   .cardPriceDiv > .cardPrice{
     font-size: 25px;
     margin: 5px auto;
+  }
+
+  .detailCard{
+    margin-bottom: 150px;
   }
 }

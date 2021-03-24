@@ -67,7 +67,6 @@ const CategoryProduct = ({category}) => {
                 node.productType === category ? (
                   <ProductCard
                     key={node.id}
-                    className="card"
                     imgSrc={node.images.edges[0].node.originalSrc}
                     name={node.title}
                     price={node.priceRange.maxVariantPrice.amount}

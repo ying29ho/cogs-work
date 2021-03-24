@@ -4,7 +4,7 @@ import { Input } from "../form";
 import { Col } from "react-bootstrap/";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import "./card.css";
+import "./card.scss";
 
 const MainContainer = styled.div`
   .Container {
@@ -46,8 +46,8 @@ const ProductCard = ({
         <Card
           stretched-link="true"
           className="productCard"
-          bg="card-primary"
-          text="card-text"
+          bg="dirty-blue"
+          text="dark-pink"
         >
           <Card.Img variant="top" src={imgSrc} className="cardImage" />
           <Card.Body style={{ position: "relative" }}>
